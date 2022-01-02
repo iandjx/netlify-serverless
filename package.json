@@ -1,0 +1,25 @@
+{
+  "name": "netlify-serverless",
+  "version": "1.0.0",
+  "description": "Learn how to use serverless functions in less than 30 minutes!",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iandjx/netlify-serverless.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iandjx/netlify-serverless/issues"
+  },
+  "homepage": "https://github.com/iandjx/netlify-serverless#readme",
+  "dependencies": {
+    "@mozilla/readability": "^0.4.1",
+    "faunadb": "^4.4.1",
+    "got": "^12.0.0"
+  }
+}
