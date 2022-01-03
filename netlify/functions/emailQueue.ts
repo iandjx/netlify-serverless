@@ -1,29 +1,24 @@
 import { Queue } from "quirrel/netlify";
 import sgMail from "@sendgrid/mail";
+
 export const handler = Queue(
   ".netlify/functions/emailQueue",
   async (name: string) => {
-    console.log("greeeeattt", name);
     sgMail.setApiKey(process.env.SENDGRID_API_KEY as string);
     const msg = {
       to: "ian.dejesus.md.jp@gmail.com", // Change to your recipient
       from: "ian.dejesus.md@gmail.com", // Change to your verified sender
       subject: "Sending with SendGrid is Fun",
       text: "and easy to do anywhere, even with Node.js. sent via quirrelll",
-      html: "<strong>and easy to do anywhere, even with Node.js</strong>",
+      html: "<strong>and easy to do anywhere, even with Node.js qith quireellll</strong>",
     };
-    await new Promise((resolve, reject) => {
-      sgMail
-        .send(msg)
-        .then(() => {
-          console.log("Email sent");
-        })
-        .catch((error) => {
-          console.error(error);
-          reject(error);
-        });
-      resolve("done");
-    });
+
+    try {
+      await sgMail.send(msg);
+      console.log("email sent");
+    } catch (err: any) {
+      console.error("email not sent");
+    }
   }
 );
 
