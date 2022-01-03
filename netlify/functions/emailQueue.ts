@@ -12,14 +12,18 @@ export const handler = Queue(
       text: "and easy to do anywhere, even with Node.js. sent via quirrelll",
       html: "<strong>and easy to do anywhere, even with Node.js</strong>",
     };
-    sgMail
-      .send(msg)
-      .then(() => {
-        console.log("Email sent");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    await new Promise((resolve, reject) => {
+      sgMail
+        .send(msg)
+        .then(() => {
+          console.log("Email sent");
+        })
+        .catch((error) => {
+          console.error(error);
+          reject(error);
+        });
+      resolve("done");
+    });
   }
 );
 
