@@ -19,8 +19,11 @@
   "homepage": "https://github.com/iandjx/netlify-serverless#readme",
   "dependencies": {
     "@mozilla/readability": "^0.4.1",
+    "@quirrel/next": "^0.10.0",
+    "@sendgrid/mail": "^7.6.0",
     "faunadb": "^4.4.1",
     "got": "^12.0.0",
+    "quirrel": "^1.7.4",
     "typescript": "^4.5.4"
   },
   "devDependencies": {
