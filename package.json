@@ -22,6 +22,7 @@
     "@quirrel/next": "^0.10.0",
     "@sendgrid/mail": "^7.6.0",
     "faunadb": "^4.4.1",
+    "googleapis": "39",
     "got": "^12.0.0",
     "quirrel": "^1.7.4",
     "typescript": "^4.5.4"
