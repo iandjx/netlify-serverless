@@ -1,19 +1,24 @@
-const faunadb = require("faunadb");
+import faunadb from "faunadb";
+import { Handler } from "@netlify/functions";
+import { Response } from "./create";
 
 /* configure faunaDB Client with our secret */
 
 const q = faunadb.query;
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SERVER_SECRET
+  secret: process.env.FAUNADB_SERVER_SECRET as any,
 });
 
-exports.handler = async (event, context) => {
+const handler: Handler = async (event, context) => {
   try {
-    const response = await client.query(
-      q.Delete(q.Ref(q.Collection('notes'), '123'))
+    const response = await client.query<Response>(
+      q.Map(
+        q.Paginate(q.Match(q.Index("all_notes"))),
+        q.Lambda((x) => q.Get(x))
+      )
     );
 
-    console.log(response);
+    console.log(response.data);
 
     return {
       statusCode: 200,
@@ -32,3 +37,4 @@ exports.handler = async (event, context) => {
     };
   }
 };
+export { handler };

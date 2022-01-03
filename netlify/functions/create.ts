@@ -1,15 +1,17 @@
-const faunadb = require("faunadb");
-
+import faunadb from "faunadb";
+import { Handler } from "@netlify/functions";
 /* configure faunaDB Client with our secret */
 
 const q = faunadb.query;
 const client = new faunadb.Client({
-  secret: process.env.FAUNADB_SERVER_SECRET
+  secret: process.env.FAUNADB_SERVER_SECRET as string,
 });
 
-
-exports.handler = async (event, context) => {
+const handler: Handler = async (event, context) => {
   /* parse the string body into a useable JS object */
+  if (!event.body) {
+    throw "body cant be null";
+  }
   const data = JSON.parse(event.body);
 
   console.log(`Processing 'todo-create' of ${data} on the database...`);
@@ -18,11 +20,9 @@ exports.handler = async (event, context) => {
   };
 
   try {
-    const response = await client.query(
+    const response = await client.query<Response>(
       q.Create(q.Ref(q.Collection("notes"), "123"), todoItem)
     );
-
-    console.log(response);
 
     return {
       statusCode: 200,
@@ -41,3 +41,8 @@ exports.handler = async (event, context) => {
     };
   }
 };
+export { handler };
+
+export interface Response {
+  data: any;
+}
